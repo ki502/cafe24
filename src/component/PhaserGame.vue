@@ -8,21 +8,31 @@
 
 <script>
 export default {
+    beforeDestroy: function () {
+        window.removeEventListener('resize', this.resizeScene);
+    },
     mounted() {
-       this.create();
+        this.width = window.innerWidth;
+        this.create();
+        window.addEventListener('resize', this.resizeScene);
     },
     data() {
         return {
-            game: null
+            game: null,
+            width: 0,
+            heght: 0,
+            circleList: []
         }
     },
     methods: {
         create() {
+            this.height = 200;
+
             this.game = new Phaser.Game({
                 parent: 'phaser-div',
                 type: Phaser.AUTO,
-                width: 800,
-                height: 600,
+                width: this.width,
+                height: this.height,
                 physics: {
                     default: 'arcade',
                     arcade: {
@@ -35,54 +45,21 @@ export default {
             });
         },
         createScene: function() {
-            var r1 = this.game.scene.scenes[0].add.circle(200, 200, 80, 0x6666ff);
+            this.circleList = [];
 
-            var r2 = this.game.scene.scenes[0].add.circle(400, 200, 80, 0x9966ff);
+            let start = (this.width - 600) / 2;
 
-            r2.setStrokeStyle(4, 0xefc53f);
+            for(let index = 0; index < 6; index++) {
+                this.circleList.push(this.game.scene.scenes[0].add.circle(start + 50 + (index * 100), 100, 50, 0x6666ff));
+            }
+        },
+        resizeScene: function() {
+            this.width = window.innerWidth;
+            let start = (this.width - 600) / 2;
 
-            var r3 = this.game.scene.scenes[0].add.circle(600, 200, 80);
-
-            r3.setStrokeStyle(2, 0x1a65ac);
-
-            var r4 = this.game.scene.scenes[0].add.circle(200, 400, 80, 0xff6699);
-
-            var r5 = this.game.scene.scenes[0].add.circle(400, 400, 80, 0xff33cc);
-
-            var r6 = this.game.scene.scenes[0].add.circle(600, 400, 80, 0xff66ff);
-
-            //  WebGL only
-            r6.setIterations(0.2);
-
-            this.game.scene.scenes[0].tweens.add({
-
-                targets: r4,
-                scaleX: 0.25,
-                scaleY: 0.5,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-
-            });
-
-            this.game.scene.scenes[0].tweens.add({
-
-                targets: r5,
-                alpha: 0.2,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-
-            });
-
-            this.game.scene.scenes[0].tweens.add({
-
-                targets: r6,
-                angle: 90,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-
+            this.game.scale.resize(this.width, this.height);
+            this.circleList.forEach((element, index) => {
+                element.x = start + 50 + (index * 100);
             });
         }
     }
