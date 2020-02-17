@@ -107,7 +107,9 @@ export default {
             let startDate = new Date("2002-12-07");
             let nowDate = new Date();
             let diffDate = nowDate - startDate;
-            return parseInt(diffDate / (24 * 60 * 60 * 1000) / 7); // 주 단위로 짤라서 구하기
+            
+            // 주 단위로 짤라서 구하기 현재 주 + 1주기 때문에 더하기 1을 해준다.
+            return parseInt(diffDate / (24 * 60 * 60 * 1000) / 7) + 1;
         },
         getColorByNumber(value){
             /*
