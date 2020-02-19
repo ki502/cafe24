@@ -140,7 +140,8 @@ export default {
                 drwtNo5: 26
                 drwtNo6: 36
             */
-            let lottoInfo = (await axios.get(`/apis/lotto/${count}`)).data;
+
+            let lottoInfo = (await axios.get(`${this.$store.state.axios}/apis/lotto/${count}`)).data;
 
             this.itemList.forEach((element, index) => {
                 if(element.type === 'circle') {

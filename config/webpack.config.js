@@ -1,7 +1,8 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: __dirname + '/../src/index.js',
   module: {
     rules: [
         { test: /\.vue$/, loader: 'vue-loader' },
@@ -10,7 +11,15 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/
   },
+  optimization: {
+		minimize: false
+	},
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'MyApp',
+      filename: 'index.html',
+      template: __dirname + '/../views/index.html'
+    })
   ]
 };

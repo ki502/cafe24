@@ -10,10 +10,10 @@ app.set('views', __dirname + '/views');
 
 app.use('/apis', route);
 
-app.use('/dist', express.static( __dirname + '/dist'));
+app.use('/', express.static(__dirname + '/dist'));
 //app.get('/', (req, res) => res.send('Hello World!'))
 //app.get('/', (req, res) => res.render('index', { keyList: [0,1,2,3,4,5] } ));
-app.get('/', (req, res) => res.render('index.html'));
+//app.get('/', (req, res) => res.render(__dirname + '/dist/index.html'));
 // 만들어진 app 객체에 있는 get 메소드 이용하여 먼진 모르지만 res.send로 Hello world를 하겠어
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
