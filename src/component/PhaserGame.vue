@@ -123,7 +123,7 @@ export default {
             let colorList = [16499712, 6932722, 16748688, 11184810, 11589696];
             return colorList[parseInt(value / 10)];
         },
-        async getLottoInfo() {
+        getLottoInfo() {
             let count = this.calcurateLotto();
             /*
                 drwNoDate: "2020-02-08"
@@ -141,24 +141,26 @@ export default {
                 drwtNo6: 36
             */
 
-            let lottoInfo = (await axios.get(`${this.$store.state.axios}/apis/lotto/${count}`)).data;
+            axios.get(`${this.$store.state.axios}/apis/lotto/${count}`).then((result) => {
+                let lottoInfo = result.data;
 
-            this.itemList.forEach((element, index) => {
-                if(element.type === 'circle') {
-                    let propertyName = 'drwtNo' + (index + 1);
-                    let value = lottoInfo[propertyName];
+                this.itemList.forEach((element, index) => {
+                    if(element.type === 'circle') {
+                        let propertyName = 'drwtNo' + (index + 1);
+                        let value = lottoInfo[propertyName];
 
-                    element.text.setText(value);
-                    this.itemList[index].circle.fillColor = this.getColorByNumber(value);
-                }
+                        element.text.setText(value);
+                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
+                    }
 
-                if(element.type === 'lastNumber') {
-                    let value = lottoInfo.bnusNo;
+                    if(element.type === 'lastNumber') {
+                        let value = lottoInfo.bnusNo;
 
-                    element.text.setText(value);
-                    this.itemList[index].circle.fillColor = this.getColorByNumber(value);
-                }
-            });            
+                        element.text.setText(value);
+                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
+                    }
+                }); 
+            });                       
         }
     }
 }
