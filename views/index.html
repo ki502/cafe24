@@ -1,5 +1,10 @@
 <html>
 	<head>		
+		<!-- Cordova -->
+		<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 		<!-- 개발버전, 도움되는 콘솔 경고를 포함. -->
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
@@ -18,20 +23,7 @@
 				<v-content>
 					<v-container fluid>
 						<header-view></header-view>
-						<v-row>
-							<!-- Left 영역 -->
-							<v-col :cols="1">
-								<left-view></left-view>
-							</v-col>
-							<!-- Center 영역 -->
-							<v-col :cols="10">
-								<center-view></center-view>
-							</v-col>
-							<!-- Right 영역  -->
-							<v-col :cols="1">
-								<right-view></right-view>
-							</v-col>
-						</v-row>
+						<center-view></center-view>
 					</v-container>
 				</v-content>
 			</v-app>

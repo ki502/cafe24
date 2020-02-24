@@ -12,7 +12,7 @@ export default {
         window.removeEventListener('resize', this.resizeScene);
     },
     mounted() {
-        this.width = window.innerWidth;
+        this.width = window.innerWidth - 24 - 17;
         this.create();
         window.addEventListener('resize', this.resizeScene);
     },
@@ -77,7 +77,7 @@ export default {
             this.getLottoInfo();
         },
         resizeScene: function() {
-            this.width = window.innerWidth;
+            this.width = window.innerWidth - 24 - 17;
             
             let radius = this.radius;
             let ballCount = this.ballCount;

@@ -320,49 +320,61 @@ var render = function() {
     { staticClass: "text-center display-4", attrs: { "no-gutters": "" } },
     [
       _c(
-        "v-col",
-        { attrs: { sm: "12" } },
+        "v-app-bar",
+        {
+          attrs: {
+            color: "deep-purple accent-4",
+            dark: "",
+            "scroll-target": "#scrolling-techniques-6"
+          }
+        },
         [
+          _c("v-toolbar-title", [_vm._v("MyApp")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
           _c(
-            "v-row",
+            "v-tabs",
+            { attrs: { "align-with-title": "" } },
             [
               _c(
-                "v-col",
-                [
-                  _c(
-                    "v-img",
-                    {
-                      attrs: {
-                        "max-height": "300px",
-                        src:
-                          "https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-                      }
-                    },
-                    [
-                      _c(
-                        "v-row",
-                        {
-                          staticStyle: { height: "300px", color: "white" },
-                          attrs: { align: "center", justify: "center" }
-                        },
-                        [
-                          _c("v-col", [
-                            _c("span", [_vm._v("내가 만든 홈페이지")])
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
+                "v-tab",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.move("/game")
+                    }
+                  }
+                },
+                [_vm._v("게임")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tab",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.move("/coupang")
+                    }
+                  }
+                },
+                [_vm._v("쿠팡 파트너스")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tab",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.move("/lotto")
+                    }
+                  }
+                },
+                [_vm._v("로또")]
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("v-row", [_c("phaser-game")], 1)
+          )
         ],
         1
       )
@@ -376,31 +388,13 @@ render._withStripped = true
 
 // CONCATENATED MODULE: ./src/layout/HeaderView.vue?vue&type=template&id=61d96e24&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/component/PhaserGame.vue?vue&type=template&id=cfe8c598&
-var PhaserGamevue_type_template_id_cfe8c598_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-row",
-    [
-      _c(
-        "v-col",
-        { attrs: { cols: 12 } },
-        [_c("v-card", { attrs: { id: "phaser-div" } })],
-        1
-      )
-    ],
-    1
-  )
-}
-var PhaserGamevue_type_template_id_cfe8c598_staticRenderFns = []
-PhaserGamevue_type_template_id_cfe8c598_render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/component/PhaserGame.vue?vue&type=template&id=cfe8c598&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/component/PhaserGame.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/HeaderView.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -410,166 +404,16 @@ PhaserGamevue_type_template_id_cfe8c598_render._withStripped = true
 //
 //
 
-/* harmony default export */ var PhaserGamevue_type_script_lang_js_ = ({
-    beforeDestroy: function () {
-        window.removeEventListener('resize', this.resizeScene);
-    },
-    mounted() {
-        this.width = window.innerWidth;
-        this.create();
-        window.addEventListener('resize', this.resizeScene);
-    },
-    data() {
-        return {
-            game: null,
-            width: 0,
-            heght: 0,
-            itemList: [],
-            radius: 50,
-            ballCount: 6,
-        }
-    },
+/* harmony default export */ var HeaderViewvue_type_script_lang_js_ = ({
     methods: {
-        create() {
-            this.height = 200;
-
-            this.game = new Phaser.Game({
-                parent: 'phaser-div',
-                type: Phaser.AUTO,
-                width: this.width,
-                height: this.height,
-                scene: {
-                    create: this.createScene,
-                }
-            });
-        },
-        createScene: function() {
-            this.itemList = [];
-
-            let radius = this.radius;
-            let ballCount = this.ballCount;
-            let pointX = 0;
-            let operationX = 20;
-            let gap = 10;
-            let start = (this.width - (radius * ballCount * 2) - (operationX * 4) - (radius * 2 )) / 2;
-
-            // 1~6 번호
-            for(let index = 0; index < ballCount; index++) {
-                pointX = start + radius + (index * radius * 2) + (index * gap);
-
-                this.itemList.push({
-                    type: 'circle',
-                    circle: this.game.scene.scenes[0].add.circle(pointX, this.height / 2, radius, 0x6666ff),
-                    text: this.game.scene.scenes[0].add.text(pointX, this.height / 2, '-').setFontSize(50).setOrigin(0.5)
-                });
-            }
-
-            // + 연산자
-            this.itemList.push({
-                type: 'operation',
-                text: this.game.scene.scenes[0].add.text(pointX + radius + operationX, this.height / 2, '+').setFontSize(50).setOrigin(0.5)
-            });
-
-            //보너스 번호
-            this.itemList.push({
-                type: 'lastNumber',
-                circle: this.game.scene.scenes[0].add.circle(pointX + (radius * 2) + (operationX * 2), this.height / 2, 50, 0x6666ff),
-                text: this.game.scene.scenes[0].add.text(pointX + (radius * 2) + (operationX * 2), this.height / 2, '-').setFontSize(50).setOrigin(0.5)
-            });
-            
-            this.getLottoInfo();
-        },
-        resizeScene: function() {
-            this.width = window.innerWidth;
-            
-            let radius = this.radius;
-            let ballCount = this.ballCount;
-            let pointX = 0;
-            let operationX = 20;
-            let gap = 10;
-            let start = (this.width - (radius * ballCount * 2) - (operationX * 4) - (radius * 2 )) / 2;
-
-            this.game.scale.resize(this.width, this.height);
-
-            // 1~6 번호
-            for(let index = 0; index < ballCount; index++) {
-                pointX = start + radius + (index * radius * 2) + (index * gap);
-
-                this.itemList[index].circle.x = pointX;
-                this.itemList[index].text.x = pointX;
-            }
-
-            // + 연산자
-            this.itemList[ballCount].text.x = pointX + radius + operationX;
-
-            // 보너스 번호
-            this.itemList[ballCount + 1].circle.x = pointX + radius + (operationX * 2) + radius;
-            this.itemList[ballCount + 1].text.x = pointX + radius + (operationX * 2) + radius;
-        },
-        calcurateLotto() {
-            let startDate = new Date("2002-12-07");
-            let nowDate = new Date();
-            let diffDate = nowDate - startDate;
-            
-            // 주 단위로 짤라서 구하기 현재 주 + 1주기 때문에 더하기 1을 해준다.
-            return parseInt(diffDate / (24 * 60 * 60 * 1000) / 7) + 1;
-        },
-        getColorByNumber(value){
-            /*
-                바탕색상표
-                1~10 : #FBC400
-                11~20 : #69C8F2
-                21~30 : #FF9090
-                31~40 : #AAAAAA
-                41~46 : #B0D840
-            */
-            let colorList = [16499712, 6932722, 16748688, 11184810, 11589696];
-            return colorList[parseInt(value / 10)];
-        },
-        getLottoInfo() {
-            let count = this.calcurateLotto();
-            /*
-                drwNoDate: "2020-02-08"
-                totSellamnt: 88231474000
-                firstWinamnt: 1619922520
-                firstPrzwnerCo: 13
-                bnusNo: 29
-                firstAccumamnt: 21058992760
-                drwNo: 897
-                drwtNo1: 6
-                drwtNo2: 7
-                drwtNo3: 12
-                drwtNo4: 22
-                drwtNo5: 26
-                drwtNo6: 36
-            */
-
-            axios.get(`${this.$store.state.axios}/apis/lotto/${count}`).then((result) => {
-                let lottoInfo = result.data;
-
-                this.itemList.forEach((element, index) => {
-                    if(element.type === 'circle') {
-                        let propertyName = 'drwtNo' + (index + 1);
-                        let value = lottoInfo[propertyName];
-
-                        element.text.setText(value);
-                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
-                    }
-
-                    if(element.type === 'lastNumber') {
-                        let value = lottoInfo.bnusNo;
-
-                        element.text.setText(value);
-                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
-                    }
-                }); 
-            });                       
+        move: function(url) {
+            this.$router.push({ path: url, })
         }
     }
 });
 
-// CONCATENATED MODULE: ./src/component/PhaserGame.vue?vue&type=script&lang=js&
- /* harmony default export */ var component_PhaserGamevue_type_script_lang_js_ = (PhaserGamevue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/layout/HeaderView.vue?vue&type=script&lang=js&
+ /* harmony default export */ var layout_HeaderViewvue_type_script_lang_js_ = (HeaderViewvue_type_script_lang_js_); 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
 
@@ -665,63 +509,6 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: ./src/component/PhaserGame.vue
-
-
-
-
-
-/* normalize component */
-
-var component = normalizeComponent(
-  component_PhaserGamevue_type_script_lang_js_,
-  PhaserGamevue_type_template_id_cfe8c598_render,
-  PhaserGamevue_type_template_id_cfe8c598_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/component/PhaserGame.vue"
-/* harmony default export */ var PhaserGame = (component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/HeaderView.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ var HeaderViewvue_type_script_lang_js_ = ({
-    components: {
-        PhaserGame: PhaserGame
-    }
-});
-
-// CONCATENATED MODULE: ./src/layout/HeaderView.vue?vue&type=script&lang=js&
- /* harmony default export */ var layout_HeaderViewvue_type_script_lang_js_ = (HeaderViewvue_type_script_lang_js_); 
 // CONCATENATED MODULE: ./src/layout/HeaderView.vue
 
 
@@ -730,7 +517,7 @@ component.options.__file = "src/component/PhaserGame.vue"
 
 /* normalize component */
 
-var HeaderView_component = normalizeComponent(
+var component = normalizeComponent(
   layout_HeaderViewvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -742,74 +529,35 @@ var HeaderView_component = normalizeComponent(
 )
 
 /* hot reload */
-if (false) { var HeaderView_api; }
-HeaderView_component.options.__file = "src/layout/HeaderView.vue"
-/* harmony default export */ var HeaderView = (HeaderView_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/layout/LeftView.vue?vue&type=template&id=65323d68&
-var LeftViewvue_type_template_id_65323d68_render = function() {
+if (false) { var api; }
+component.options.__file = "src/layout/HeaderView.vue"
+/* harmony default export */ var HeaderView = (component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/layout/CenterView.vue?vue&type=template&id=180eeab6&
+var CenterViewvue_type_template_id_180eeab6_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-row",
-    [
-      _c(
-        "v-col",
-        [
-          _c(
-            "v-card",
-            { staticClass: "lime lighten-2 text-center display-1" },
-            [
-              _c(
-                "a",
-                {
-                  attrs: { href: "https://coupa.ng/bpaHLS", target: "_blank" }
-                },
-                [
-                  _c("v-img", {
-                    attrs: {
-                      src:
-                        "https://ads-partners.coupang.com/banners/141846?subId=&traceId=V0-301-879dd1202e5c73b2-I141846&w=10&h=600",
-                      alt: ""
-                    }
-                  })
-                ],
-                1
-              )
-            ]
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("router-view")
 }
-var LeftViewvue_type_template_id_65323d68_staticRenderFns = []
-LeftViewvue_type_template_id_65323d68_render._withStripped = true
+var CenterViewvue_type_template_id_180eeab6_staticRenderFns = []
+CenterViewvue_type_template_id_180eeab6_render._withStripped = true
 
 
-// CONCATENATED MODULE: ./src/layout/LeftView.vue?vue&type=template&id=65323d68&
+// CONCATENATED MODULE: ./src/layout/CenterView.vue?vue&type=template&id=180eeab6&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/LeftView.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/CenterView.vue?vue&type=script&lang=js&
 //
 //
 //
 //
 
-/* harmony default export */ var LeftViewvue_type_script_lang_js_ = ({
 
+/* harmony default export */ var CenterViewvue_type_script_lang_js_ = ({
 });
 
-// CONCATENATED MODULE: ./src/layout/LeftView.vue?vue&type=script&lang=js&
- /* harmony default export */ var layout_LeftViewvue_type_script_lang_js_ = (LeftViewvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/layout/LeftView.vue
+// CONCATENATED MODULE: ./src/layout/CenterView.vue?vue&type=script&lang=js&
+ /* harmony default export */ var layout_CenterViewvue_type_script_lang_js_ = (CenterViewvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/layout/CenterView.vue
 
 
 
@@ -817,10 +565,10 @@ LeftViewvue_type_template_id_65323d68_render._withStripped = true
 
 /* normalize component */
 
-var LeftView_component = normalizeComponent(
-  layout_LeftViewvue_type_script_lang_js_,
-  LeftViewvue_type_template_id_65323d68_render,
-  LeftViewvue_type_template_id_65323d68_staticRenderFns,
+var CenterView_component = normalizeComponent(
+  layout_CenterViewvue_type_script_lang_js_,
+  CenterViewvue_type_template_id_180eeab6_render,
+  CenterViewvue_type_template_id_180eeab6_staticRenderFns,
   false,
   null,
   null,
@@ -829,44 +577,392 @@ var LeftView_component = normalizeComponent(
 )
 
 /* hot reload */
-if (false) { var LeftView_api; }
-LeftView_component.options.__file = "src/layout/LeftView.vue"
-/* harmony default export */ var LeftView = (LeftView_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/layout/CenterView.vue?vue&type=template&id=180eeab6&
-var CenterViewvue_type_template_id_180eeab6_render = function() {
+if (false) { var CenterView_api; }
+CenterView_component.options.__file = "src/layout/CenterView.vue"
+/* harmony default export */ var CenterView = (CenterView_component.exports);
+// EXTERNAL MODULE: ./node_modules/is-electron/index.js
+var is_electron = __webpack_require__(0);
+var is_electron_default = /*#__PURE__*/__webpack_require__.n(is_electron);
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Game.vue?vue&type=template&id=0e188196&
+var Gamevue_type_template_id_0e188196_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "v-row",
-    _vm._l(_vm.cards, function(card, index) {
-      return _c(
+    [
+      _c(
         "v-col",
-        { key: index, attrs: { cols: card.flex } },
-        [
-          _c("card", {
-            attrs: {
-              link: card.link,
-              imageUrl: card.src,
-              title: card.title,
-              maxWidth: card.maxWidth,
-              iconColor: card.iconColor,
-              description: card.description,
-              cardLink: card.cardLink
-            }
-          })
-        ],
+        { attrs: { cols: 12 } },
+        [_c("v-card", { attrs: { id: "game" } })],
         1
       )
-    }),
+    ],
     1
   )
 }
-var CenterViewvue_type_template_id_180eeab6_staticRenderFns = []
-CenterViewvue_type_template_id_180eeab6_render._withStripped = true
+var Gamevue_type_template_id_0e188196_staticRenderFns = []
+Gamevue_type_template_id_0e188196_render._withStripped = true
 
 
-// CONCATENATED MODULE: ./src/layout/CenterView.vue?vue&type=template&id=180eeab6&
+// CONCATENATED MODULE: ./src/pages/Game.vue?vue&type=template&id=0e188196&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Game.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var Gamevue_type_script_lang_js_ = ({
+    beforeDestroy: function () {
+        window.removeEventListener('resize', this.resizeScene);
+    },
+    mounted() {
+        this.width = window.innerWidth - 24 - 17;
+        this.create();
+        window.addEventListener('resize', this.resizeScene);
+    },
+    data() {
+        return {
+            game: null,
+            width: 0,
+            heght: 0,
+            itemList: [],
+            radius: 50,
+            ballCount: 6,
+        }
+    },
+    methods: {
+        create() {
+            this.height = window.innerHeight - 64 - 24 - 12;
+
+            this.game = new Phaser.Game({
+                parent: 'game',
+                type: Phaser.AUTO,
+                width: this.width,
+                height: this.height,
+                scene: {
+                    create: this.createScene,
+                }
+            });
+        },
+        createScene: function() {
+            this.itemList = [];
+        },
+        resizeScene: function() {
+            this.width = window.innerWidth - 24 - 17;
+            this.height = window.innerHeight - 64 - 24 - 12;
+            
+            this.game.scale.resize(this.width, this.height);
+        }
+    }
+});
+
+// CONCATENATED MODULE: ./src/pages/Game.vue?vue&type=script&lang=js&
+ /* harmony default export */ var pages_Gamevue_type_script_lang_js_ = (Gamevue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/pages/Game.vue
+
+
+
+
+
+/* normalize component */
+
+var Game_component = normalizeComponent(
+  pages_Gamevue_type_script_lang_js_,
+  Gamevue_type_template_id_0e188196_render,
+  Gamevue_type_template_id_0e188196_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var Game_api; }
+Game_component.options.__file = "src/pages/Game.vue"
+/* harmony default export */ var Game = (Game_component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Lotto.vue?vue&type=template&id=501438d0&
+var Lottovue_type_template_id_501438d0_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    [
+      _c(
+        "v-col",
+        { attrs: { cols: 12 } },
+        [_c("v-card", { attrs: { id: "phaser-div" } })],
+        1
+      )
+    ],
+    1
+  )
+}
+var Lottovue_type_template_id_501438d0_staticRenderFns = []
+Lottovue_type_template_id_501438d0_render._withStripped = true
+
+
+// CONCATENATED MODULE: ./src/pages/Lotto.vue?vue&type=template&id=501438d0&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Lotto.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var Lottovue_type_script_lang_js_ = ({
+    beforeDestroy: function () {
+        window.removeEventListener('resize', this.resizeScene);
+    },
+    mounted() {
+        this.width = window.innerWidth - 24 - 17;
+        this.create();
+        window.addEventListener('resize', this.resizeScene);
+    },
+    data() {
+        return {
+            game: null,
+            width: 0,
+            heght: 0,
+            itemList: [],
+            radius: 50,
+            ballCount: 6,
+        }
+    },
+    methods: {
+        create() {
+            this.height = 200;
+
+            this.game = new Phaser.Game({
+                parent: 'phaser-div',
+                type: Phaser.AUTO,
+                width: this.width,
+                height: this.height,
+                scene: {
+                    create: this.createScene,
+                }
+            });
+        },
+        createScene: function() {
+            this.itemList = [];
+
+            let radius = this.radius;
+            let ballCount = this.ballCount;
+            let pointX = 0;
+            let operationX = 20;
+            let gap = 10;
+            let start = (this.width - (radius * ballCount * 2) - (operationX * 4) - (radius * 2 )) / 2;
+
+            // 1~6 번호
+            for(let index = 0; index < ballCount; index++) {
+                pointX = start + radius + (index * radius * 2) + (index * gap);
+
+                this.itemList.push({
+                    type: 'circle',
+                    circle: this.game.scene.scenes[0].add.circle(pointX, this.height / 2, radius, 0x6666ff),
+                    text: this.game.scene.scenes[0].add.text(pointX, this.height / 2, '-').setFontSize(50).setOrigin(0.5)
+                });
+            }
+
+            // + 연산자
+            this.itemList.push({
+                type: 'operation',
+                text: this.game.scene.scenes[0].add.text(pointX + radius + operationX, this.height / 2, '+').setFontSize(50).setOrigin(0.5)
+            });
+
+            //보너스 번호
+            this.itemList.push({
+                type: 'lastNumber',
+                circle: this.game.scene.scenes[0].add.circle(pointX + (radius * 2) + (operationX * 2), this.height / 2, 50, 0x6666ff),
+                text: this.game.scene.scenes[0].add.text(pointX + (radius * 2) + (operationX * 2), this.height / 2, '-').setFontSize(50).setOrigin(0.5)
+            });
+            
+            this.getLottoInfo();
+        },
+        resizeScene: function() {
+            this.width = window.innerWidth - 24 - 17;
+            
+            let radius = this.radius;
+            let ballCount = this.ballCount;
+            let pointX = 0;
+            let operationX = 20;
+            let gap = 10;
+            let start = (this.width - (radius * ballCount * 2) - (operationX * 4) - (radius * 2 )) / 2;
+
+            this.game.scale.resize(this.width, this.height);
+
+            // 1~6 번호
+            for(let index = 0; index < ballCount; index++) {
+                pointX = start + radius + (index * radius * 2) + (index * gap);
+
+                this.itemList[index].circle.x = pointX;
+                this.itemList[index].text.x = pointX;
+            }
+
+            // + 연산자
+            this.itemList[ballCount].text.x = pointX + radius + operationX;
+
+            // 보너스 번호
+            this.itemList[ballCount + 1].circle.x = pointX + radius + (operationX * 2) + radius;
+            this.itemList[ballCount + 1].text.x = pointX + radius + (operationX * 2) + radius;
+        },
+        calcurateLotto() {
+            let startDate = new Date("2002-12-07");
+            let nowDate = new Date();
+            let diffDate = nowDate - startDate;
+            
+            // 주 단위로 짤라서 구하기 현재 주 + 1주기 때문에 더하기 1을 해준다.
+            return parseInt(diffDate / (24 * 60 * 60 * 1000) / 7) + 1;
+        },
+        getColorByNumber(value){
+            /*
+                바탕색상표
+                1~10 : #FBC400
+                11~20 : #69C8F2
+                21~30 : #FF9090
+                31~40 : #AAAAAA
+                41~46 : #B0D840
+            */
+            let colorList = [16499712, 6932722, 16748688, 11184810, 11589696];
+            return colorList[parseInt(value / 10)];
+        },
+        getLottoInfo() {
+            let count = this.calcurateLotto();
+            /*
+                drwNoDate: "2020-02-08"
+                totSellamnt: 88231474000
+                firstWinamnt: 1619922520
+                firstPrzwnerCo: 13
+                bnusNo: 29
+                firstAccumamnt: 21058992760
+                drwNo: 897
+                drwtNo1: 6
+                drwtNo2: 7
+                drwtNo3: 12
+                drwtNo4: 22
+                drwtNo5: 26
+                drwtNo6: 36
+            */
+
+            axios.get(`${this.$store.state.axios}/apis/lotto/${count}`).then((result) => {
+                let lottoInfo = result.data;
+
+                this.itemList.forEach((element, index) => {
+                    if(element.type === 'circle') {
+                        let propertyName = 'drwtNo' + (index + 1);
+                        let value = lottoInfo[propertyName];
+
+                        element.text.setText(value);
+                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
+                    }
+
+                    if(element.type === 'lastNumber') {
+                        let value = lottoInfo.bnusNo;
+
+                        element.text.setText(value);
+                        this.itemList[index].circle.fillColor = this.getColorByNumber(value);
+                    }
+                }); 
+            });                       
+        }
+    }
+});
+
+// CONCATENATED MODULE: ./src/pages/Lotto.vue?vue&type=script&lang=js&
+ /* harmony default export */ var pages_Lottovue_type_script_lang_js_ = (Lottovue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/pages/Lotto.vue
+
+
+
+
+
+/* normalize component */
+
+var Lotto_component = normalizeComponent(
+  pages_Lottovue_type_script_lang_js_,
+  Lottovue_type_template_id_501438d0_render,
+  Lottovue_type_template_id_501438d0_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var Lotto_api; }
+Lotto_component.options.__file = "src/pages/Lotto.vue"
+/* harmony default export */ var Lotto = (Lotto_component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Coupang.vue?vue&type=template&id=1b273c02&
+var Coupangvue_type_template_id_1b273c02_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    [
+      _c(
+        "v-row",
+        [
+          _c("v-col", { attrs: { cols: 1 } }, [_c("left-view")], 1),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: 10 } },
+            [
+              _c(
+                "v-row",
+                _vm._l(_vm.cards, function(card, index) {
+                  return _c(
+                    "v-col",
+                    { key: index, attrs: { cols: card.flex } },
+                    [
+                      _c("card", {
+                        attrs: {
+                          link: card.link,
+                          imageUrl: card.src,
+                          title: card.title,
+                          maxWidth: card.maxWidth,
+                          iconColor: card.iconColor,
+                          description: card.description,
+                          cardLink: card.cardLink
+                        }
+                      })
+                    ],
+                    1
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-col", { attrs: { cols: 1 } }, [_c("right-view")], 1)
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var Coupangvue_type_template_id_1b273c02_staticRenderFns = []
+Coupangvue_type_template_id_1b273c02_render._withStripped = true
+
+
+// CONCATENATED MODULE: ./src/pages/Coupang.vue?vue&type=template&id=1b273c02&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/component/Card.vue?vue&type=template&id=2a34ac1b&
 var Cardvue_type_template_id_2a34ac1b_render = function() {
@@ -972,7 +1068,196 @@ var Card_component = normalizeComponent(
 if (false) { var Card_api; }
 Card_component.options.__file = "src/component/Card.vue"
 /* harmony default export */ var Card = (Card_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/CenterView.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/component/LeftView.vue?vue&type=template&id=446734d7&
+var LeftViewvue_type_template_id_446734d7_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    [
+      _c(
+        "v-col",
+        [
+          _c(
+            "v-card",
+            { staticClass: "lime lighten-2 text-center display-1" },
+            [
+              _c(
+                "a",
+                {
+                  attrs: { href: "https://coupa.ng/bpaHLS", target: "_blank" }
+                },
+                [
+                  _c("v-img", {
+                    attrs: {
+                      src:
+                        "https://ads-partners.coupang.com/banners/141846?subId=&traceId=V0-301-879dd1202e5c73b2-I141846&w=10&h=600",
+                      alt: ""
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var LeftViewvue_type_template_id_446734d7_staticRenderFns = []
+LeftViewvue_type_template_id_446734d7_render._withStripped = true
+
+
+// CONCATENATED MODULE: ./src/component/LeftView.vue?vue&type=template&id=446734d7&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/component/LeftView.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var LeftViewvue_type_script_lang_js_ = ({
+
+});
+
+// CONCATENATED MODULE: ./src/component/LeftView.vue?vue&type=script&lang=js&
+ /* harmony default export */ var component_LeftViewvue_type_script_lang_js_ = (LeftViewvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/component/LeftView.vue
+
+
+
+
+
+/* normalize component */
+
+var LeftView_component = normalizeComponent(
+  component_LeftViewvue_type_script_lang_js_,
+  LeftViewvue_type_template_id_446734d7_render,
+  LeftViewvue_type_template_id_446734d7_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var LeftView_api; }
+LeftView_component.options.__file = "src/component/LeftView.vue"
+/* harmony default export */ var LeftView = (LeftView_component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/component/RightView.vue?vue&type=template&id=fa403334&
+var RightViewvue_type_template_id_fa403334_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-row",
+    [
+      _c(
+        "v-col",
+        [
+          _c(
+            "v-card",
+            { staticClass: "lime lighten-2 text-center display-1" },
+            [
+              _c(
+                "a",
+                {
+                  attrs: { href: "https://coupa.ng/bpaHLS", target: "_blank" }
+                },
+                [
+                  _c("v-img", {
+                    attrs: {
+                      src:
+                        "https://ads-partners.coupang.com/banners/141846?subId=&traceId=V0-301-879dd1202e5c73b2-I141846&w=10&h=600",
+                      alt: ""
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var RightViewvue_type_template_id_fa403334_staticRenderFns = []
+RightViewvue_type_template_id_fa403334_render._withStripped = true
+
+
+// CONCATENATED MODULE: ./src/component/RightView.vue?vue&type=template&id=fa403334&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/component/RightView.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var RightViewvue_type_script_lang_js_ = ({
+
+});
+
+// CONCATENATED MODULE: ./src/component/RightView.vue?vue&type=script&lang=js&
+ /* harmony default export */ var component_RightViewvue_type_script_lang_js_ = (RightViewvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/component/RightView.vue
+
+
+
+
+
+/* normalize component */
+
+var RightView_component = normalizeComponent(
+  component_RightViewvue_type_script_lang_js_,
+  RightViewvue_type_template_id_fa403334_render,
+  RightViewvue_type_template_id_fa403334_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var RightView_api; }
+RightView_component.options.__file = "src/component/RightView.vue"
+/* harmony default export */ var RightView = (RightView_component.exports);
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/pages/Coupang.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -992,9 +1277,13 @@ Card_component.options.__file = "src/component/Card.vue"
 
 
 
-/* harmony default export */ var CenterViewvue_type_script_lang_js_ = ({
+
+
+/* harmony default export */ var Coupangvue_type_script_lang_js_ = ({
     components: {
-        Card: Card
+        Card: Card,
+        LeftView: LeftView,
+        RightView: RightView
     },
     data() {
         return {
@@ -1053,9 +1342,9 @@ Card_component.options.__file = "src/component/Card.vue"
     }
 });
 
-// CONCATENATED MODULE: ./src/layout/CenterView.vue?vue&type=script&lang=js&
- /* harmony default export */ var layout_CenterViewvue_type_script_lang_js_ = (CenterViewvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/layout/CenterView.vue
+// CONCATENATED MODULE: ./src/pages/Coupang.vue?vue&type=script&lang=js&
+ /* harmony default export */ var pages_Coupangvue_type_script_lang_js_ = (Coupangvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/pages/Coupang.vue
 
 
 
@@ -1063,10 +1352,10 @@ Card_component.options.__file = "src/component/Card.vue"
 
 /* normalize component */
 
-var CenterView_component = normalizeComponent(
-  layout_CenterViewvue_type_script_lang_js_,
-  CenterViewvue_type_template_id_180eeab6_render,
-  CenterViewvue_type_template_id_180eeab6_staticRenderFns,
+var Coupang_component = normalizeComponent(
+  pages_Coupangvue_type_script_lang_js_,
+  Coupangvue_type_template_id_1b273c02_render,
+  Coupangvue_type_template_id_1b273c02_staticRenderFns,
   false,
   null,
   null,
@@ -1075,100 +1364,9 @@ var CenterView_component = normalizeComponent(
 )
 
 /* hot reload */
-if (false) { var CenterView_api; }
-CenterView_component.options.__file = "src/layout/CenterView.vue"
-/* harmony default export */ var CenterView = (CenterView_component.exports);
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/layout/RightView.vue?vue&type=template&id=7b75eff5&
-var RightViewvue_type_template_id_7b75eff5_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-row",
-    [
-      _c(
-        "v-col",
-        [
-          _c(
-            "v-card",
-            { staticClass: "lime lighten-2 text-center display-1" },
-            [
-              _c(
-                "a",
-                {
-                  attrs: { href: "https://coupa.ng/bpaHLS", target: "_blank" }
-                },
-                [
-                  _c("v-img", {
-                    attrs: {
-                      src:
-                        "https://ads-partners.coupang.com/banners/141846?subId=&traceId=V0-301-879dd1202e5c73b2-I141846&w=10&h=600",
-                      alt: ""
-                    }
-                  })
-                ],
-                1
-              )
-            ]
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var RightViewvue_type_template_id_7b75eff5_staticRenderFns = []
-RightViewvue_type_template_id_7b75eff5_render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/layout/RightView.vue?vue&type=template&id=7b75eff5&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib??vue-loader-options!./src/layout/RightView.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ var RightViewvue_type_script_lang_js_ = ({
-
-});
-
-// CONCATENATED MODULE: ./src/layout/RightView.vue?vue&type=script&lang=js&
- /* harmony default export */ var layout_RightViewvue_type_script_lang_js_ = (RightViewvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/layout/RightView.vue
-
-
-
-
-
-/* normalize component */
-
-var RightView_component = normalizeComponent(
-  layout_RightViewvue_type_script_lang_js_,
-  RightViewvue_type_template_id_7b75eff5_render,
-  RightViewvue_type_template_id_7b75eff5_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var RightView_api; }
-RightView_component.options.__file = "src/layout/RightView.vue"
-/* harmony default export */ var RightView = (RightView_component.exports);
-// EXTERNAL MODULE: ./node_modules/is-electron/index.js
-var is_electron = __webpack_require__(0);
-var is_electron_default = /*#__PURE__*/__webpack_require__.n(is_electron);
-
+if (false) { var Coupang_api; }
+Coupang_component.options.__file = "src/pages/Coupang.vue"
+/* harmony default export */ var Coupang = (Coupang_component.exports);
 // CONCATENATED MODULE: ./src/index.js
 
 
@@ -1176,7 +1374,18 @@ var is_electron_default = /*#__PURE__*/__webpack_require__.n(is_electron);
 
 
 
+
+
+const router = new VueRouter({
+    routes: [
+        { path: "/game", component: Game  },
+        { path: "/lotto", component: Lotto },
+        { path: "/coupang", component: Coupang  }
+    ]
+});
+
 new Vue({
+    router: router,
     store: new Vuex.Store({
         state: {
             axios: is_electron_default.a ? "http://localhost:8001" : ""
@@ -1186,9 +1395,7 @@ new Vue({
     el: '#app',
     components: {
         HeaderView: HeaderView,
-        LeftView: LeftView,
-        CenterView: CenterView,
-        RightView: RightView
+        CenterView: CenterView
     },
     data: {
         CONSTANTS: {

@@ -1,10 +1,21 @@
 import HeaderView from "./layout/HeaderView.vue";
-import LeftView from "./layout/LeftView.vue";
 import CenterView from "./layout/CenterView.vue";
-import RightView from "./layout/RightView.vue";
 import isElectron from 'is-electron';
 
+import Game from "./pages/Game.vue";
+import Lotto from "./pages/Lotto.vue";
+import Coupang from "./pages/Coupang.vue";
+
+const router = new VueRouter({
+    routes: [
+        { path: "/game", component: Game  },
+        { path: "/lotto", component: Lotto },
+        { path: "/coupang", component: Coupang  }
+    ]
+});
+
 new Vue({
+    router: router,
     store: new Vuex.Store({
         state: {
             axios: isElectron ? "http://localhost:8001" : ""
@@ -14,9 +25,7 @@ new Vue({
     el: '#app',
     components: {
         HeaderView,
-        LeftView,
-        CenterView,
-        RightView
+        CenterView
     },
     data: {
         CONSTANTS: {
