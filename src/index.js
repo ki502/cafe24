@@ -18,7 +18,7 @@ new Vue({
     router: router,
     store: new Vuex.Store({
         state: {
-            axios: isElectron ? "http://localhost:8001" : ""
+            axios: isElectron() ? "http://localhost:8001" : ""
         }
     }),
     vuetify: new Vuetify(),

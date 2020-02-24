@@ -329,7 +329,9 @@ var render = function() {
           }
         },
         [
-          _c("v-toolbar-title", [_vm._v("MyApp")]),
+          _c("v-toolbar-title", { staticStyle: { overflow: "inherit" } }, [
+            _vm._v("MyApp")
+          ]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -1388,7 +1390,7 @@ new Vue({
     router: router,
     store: new Vuex.Store({
         state: {
-            axios: is_electron_default.a ? "http://localhost:8001" : ""
+            axios: is_electron_default()() ? "http://localhost:8001" : ""
         }
     }),
     vuetify: new Vuetify(),
