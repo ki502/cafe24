@@ -7,6 +7,9 @@ module.exports = [{
     module: {
         rules: [
             { test: /\.vue$/, loader: 'vue-loader' },
+            { test: /\.(png|jpg)$/, loader: 'file-loader', options: {
+                name: '/image/[name].png'
+            }}
         ]
     },
     watchOptions: {
@@ -36,6 +39,9 @@ module.exports = [{
     module: {
         rules: [
             { test: /\.vue$/, loader: 'vue-loader' },
+            { test: /\.(png|jpg)$/, loader: 'file-loader', options: {
+                name: '../img/[name].png'
+            }}
         ]
     },
     watchOptions: {

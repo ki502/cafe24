@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+mobile/www/img/bamboo.png
+mobile/www/img/bg.png
+mobile/www/img/coin.png
+mobile/www/img/coin_effect.png
+mobile/www/img/gang_jump.png
+mobile/www/img/gang_run.png
+mobile/www/img/ground.png
